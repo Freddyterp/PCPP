@@ -1,0 +1,40 @@
+# Gradle
+**/.gradle/
+**/build/
+
+# Gradle wrapper should stay committed
+!gradle/wrapper/gradle-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+**/*.ipr
+**/*.iws
+**/out/
+
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+
+# VS Code
+**/.vscode/
+
+# Java / JVM
+**/*.class
+**/*.log
+
+# JVM crash logs
+**/hs_err_pid*
+**/replay_pid*
+
+# OS files
+**/.DS_Store
+**/Thumbs.db
+
+# Temporary files
+**/*.tmp
+**/*.swp
+**/*.swo
+**/*~
