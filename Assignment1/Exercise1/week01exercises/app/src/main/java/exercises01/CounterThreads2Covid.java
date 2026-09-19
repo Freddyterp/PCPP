@@ -26,7 +26,6 @@ public class CounterThreads2Covid {
             e.printStackTrace();
         }
     }
-
     public static void main(String[] args) {
         new CounterThreads2Covid();
     }

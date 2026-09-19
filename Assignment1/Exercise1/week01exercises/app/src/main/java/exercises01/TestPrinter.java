@@ -24,7 +24,6 @@ public class TestPrinter {
         new TestPrinter();
     }
 }
-
 class Printer {
     private ReentrantLock lock = new ReentrantLock();
 

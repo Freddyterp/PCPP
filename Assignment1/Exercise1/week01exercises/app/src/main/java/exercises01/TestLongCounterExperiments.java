@@ -31,7 +31,6 @@ public class TestLongCounterExperiments {
     public static void main(String[] args) {
         new TestLongCounterExperiments();
     }
-
     class LongCounter {
         private ReentrantLock lock = new ReentrantLock();
 
