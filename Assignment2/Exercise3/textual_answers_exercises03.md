@@ -98,4 +98,26 @@ The updated program does not contain data races because all accesses to count ar
 If t1 gets the lock first, then: $$ t1(4) \to t2(1) $$ and by program order: $$ t1(2) \to t1(3) \to t1(4) \to t2(1) \to t2(2) \to t2(3) $$ Therefore, the accesses to count in t1 happen-before the accesses to count in t2. If t2 gets the lock first, the opposite ordering holds: $$ t2(4) \to t1(1) $$ so the accesses in t2 happen-before the accesses in t1. In both cases, the conflicting accesses are ordered by happens-before. Therefore, there are no data races.
 
 ## Question 3.1.8
-If count is declared volatile, all accesses to count are volatile accesses. According to the Java memory model, accesses to volatile variables are not considered conflicting. Therefore, there cannot be a data race on count, so all executions are data-race free
+If count is declared volatile, all accesses to count are volatile accesses. According to the Java memory model, accesses to volatile variables are not considered conflicting. There cannot be a data race on count, so all executions are data-race free
+
+# Question 3.2
+
+## Question 3.2.1
+The program is not correctly synchronized because t1 and t2 can access list at the same time. In t1, the method findOrAdd is synchronized, but in t2, the method find is not synchronized.
+
+If t1 executes list.add(s), this is a write access to list. At the same time, t2 may execute list.indexOf(s), which is a read access to list. These two actions are conflicting because they access the same shared variable and one of them is a write.
+
+There is no happens-before relation between these two accesses, because t2 does not acquire the same monitor as t1. Therefore, the conflicting read and write can form a data race.
+
+## Question 3.2.2
+After adding synchronized to find, both findOrAdd and find are protected by the same monitor. This means that only one of the two methods can execute at a time on the same StringSet object.
+
+If t1 executes findOrAdd first, then its monitor release happens-before t2 acquires the monitor for find. If t2 executes find first, then its monitor release happens-before t1 acquires the monitor for findOrAdd.
+
+# Question 3.3
+
+## Question 3.3.1
+The write $x = 42$ in the main thread must happen-before the read of x in t1's $while(x == 0)$ loop. If the write happens-before the read, then the value 42 is visible to t1, so t1 will eventually stop seeing $x == 0$ and leave the loop.
+
+## Question 3.3.2
+The write $x = 42$ in the main thread is not guaranteed to happen-before the reads of x inside t1's $while(x == 0)$ loop. The thread-start rule only gives us: $m(start(t1)) \to t1(\text{first action})$ but $x = 42$ happens after t1.start() in the main thread. The start rule does not create $m(x=42) \to t1(x)$ There is also no lock, volatile, or other synchronization that would create such a happens-before relation.
