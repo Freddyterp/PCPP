@@ -1,0 +1,2 @@
+rootProject.name = 'exercises09'
+include('app')
